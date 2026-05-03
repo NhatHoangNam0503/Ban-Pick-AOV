@@ -22,7 +22,7 @@ try {
   console.error("Lỗi khởi tạo Firebase:", e);
 }
 
-const apiKey = ""; 
+const apiKey = "AIzaSyCaA3FYFCpgPM-_dE4N2XdLHaEAq7YR2Vg"; 
 
 // --- DỮ LIỆU META & KHẮC CHẾ (TỪ TÀI LIỆU CSV & WEB) ---
 const META_STATS = {
