@@ -138,7 +138,7 @@ const getHeroPlaystyleInfo = (heroName, role) => {
 const apiKey = import.meta.env.VITE_GEMINI_API_KEY;[cite: 1]
 const generateAIAdvice = async (prompt) => {
   const delays = [1000, 2000, 4000, 8000, 16000];
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite-preview:generateContent?key=${apiKey}`;
+  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-lite-preview:generateContent?key=${apiKey}`;
   for (let i = 0; i < 5; i++) {
     try {
       const response = await fetch(url, {
@@ -160,7 +160,7 @@ const generateAIAdvice = async (prompt) => {
 
 const generateAIPrediction = async (prompt) => {
   const delays = [1000, 2000, 4000, 8000, 16000];
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite-preview:generateContent?key=${apiKey}`;
+  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-lite-preview:generateContent?key=${apiKey}`;
   for (let i = 0; i < 5; i++) {
     try {
       const response = await fetch(url, {
@@ -194,7 +194,7 @@ const generateAIPrediction = async (prompt) => {
 const generateAIPlayerAction = async (prompt) => {
   const delays = [1000, 2000, 4000, 8000, 16000];
   // SỬA TẠI ĐÂY: Thêm ${ } bao quanh biến môi trường
-  const url = const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite-preview:generateContent?key=${apiKey}`;[cite: 1];
+  const url = const url = `https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-lite-preview:generateContent?key=${apiKey}`;[cite: 1];
   
   for (let i = 0; i < 5; i++) {
     try {
