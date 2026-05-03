@@ -192,11 +192,14 @@ const generateAIPrediction = async (prompt) => {
 
 const generateAIPlayerAction = async (prompt) => {
   const delays = [1000, 2000, 4000, 8000, 16000];
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:generateContent?key=import.meta.env.VITE_GEMINI_API_KEY`;
+  // SỬA TẠI ĐÂY: Thêm ${ } bao quanh biến môi trường
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:generateContent?key=${import.meta.env.VITE_GEMINI_API_KEY}`;
+  
   for (let i = 0; i < 5; i++) {
     try {
       const response = await fetch(url, {
-        method: "POST", headers: { "Content-Type": "application/json" },
+        method: "POST", 
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
           systemInstruction: { parts: [{ text: "Bạn là HLV ĐỘI ĐỎ trong game Liên Quân. Ra quyết định CẤM hoặc CHỌN chuẩn xác. Trả về JSON." }] },
@@ -204,16 +207,27 @@ const generateAIPlayerAction = async (prompt) => {
             responseMimeType: "application/json",
             responseSchema: {
               type: "OBJECT",
-              properties: { heroId: { type: "STRING" }, reason: { type: "STRING" } },
+              properties: { 
+                heroId: { type: "STRING" }, 
+                reason: { type: "STRING" } 
+              },
               required: ["heroId", "reason"]
             }
           }
         }),
       });
-      if (!response.ok) throw new Error("API failed");
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Chi tiết lỗi API:", errorData);
+        throw new Error("API failed");
+      }
+
       const result = await response.json();
+      // Phải parse nội dung text từ AI trả về thành Object JSON
       return JSON.parse(result.candidates?.[0]?.content?.parts?.[0]?.text);
     } catch (error) {
+      console.warn(`Lần thử ${i + 1} thất bại. Đang thử lại...`);
       if (i === 4) return null;
       await new Promise(r => setTimeout(r, delays[i]));
     }
