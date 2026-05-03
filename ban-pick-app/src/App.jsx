@@ -7,22 +7,19 @@ import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged }
 import { getFirestore, doc, setDoc, getDoc, collection, addDoc, onSnapshot, updateDoc } from 'firebase/firestore';
 
 // --- FIREBASE SETUP ---
-let app, auth, db, appId;
-try {
-  const firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyCaA3FYFCpgPM-_dE4N2XdLHaEAq7YR2Vg",
   authDomain: "ban-pick-aov-983fc.firebaseapp.com",
   projectId: "ban-pick-aov-983fc",
   storageBucket: "ban-pick-aov-983fc.firebasestorage.app",
   messagingSenderId: "242358708626",
-  appId: "1:242358708626:web:4ea846c659d757dd80b94b",
-  measurementId: "G-F1VKMNSDRN"
+  appId: "1:242358708626:web:4ea846c659d757dd80b94b"
 };
-} catch (e) {
-  console.error("Lỗi khởi tạo Firebase:", e);
-}
 
-const apiKey = "AIzaSyCaA3FYFCpgPM-_dE4N2XdLHaEAq7YR2Vg"; 
+const appId = "ban-pick-aov-983fc"; // Gán giá trị cụ thể ở đây
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 // --- DỮ LIỆU META & KHẮC CHẾ (TỪ TÀI LIỆU CSV & WEB) ---
 const META_STATS = {
