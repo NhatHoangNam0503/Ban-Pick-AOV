@@ -194,7 +194,7 @@ const generateAIPrediction = async (prompt) => {
 const generateAIPlayerAction = async (prompt) => {
   const delays = [1000, 2000, 4000, 8000, 16000];
   // SỬA TẠI ĐÂY: Thêm ${ } bao quanh biến môi trường
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${import.meta.env.VITE_GEMINI_API_KEY}`;
+  const url = const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`;[cite: 1];
   
   for (let i = 0; i < 5; i++) {
     try {
