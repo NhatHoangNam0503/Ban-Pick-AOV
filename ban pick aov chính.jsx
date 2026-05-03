@@ -9,14 +9,15 @@ import { getFirestore, doc, setDoc, getDoc, collection, addDoc, onSnapshot, upda
 // --- FIREBASE SETUP ---
 let app, auth, db, appId;
 try {
-  const firebaseConfigStr = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
-  if (firebaseConfigStr) {
-    const firebaseConfig = JSON.parse(firebaseConfigStr);
-    app = initializeApp(firebaseConfig);
-    auth = getAuth(app);
-    db = getFirestore(app);
-    appId = typeof __app_id !== 'undefined' ? __app_id : 'aov-draft-app';
-  }
+  const firebaseConfig = {
+  apiKey: "AIzaSyCaA3FYFCpgPM-_dE4N2XdLHaEAq7YR2Vg",
+  authDomain: "ban-pick-aov-983fc.firebaseapp.com",
+  projectId: "ban-pick-aov-983fc",
+  storageBucket: "ban-pick-aov-983fc.firebasestorage.app",
+  messagingSenderId: "242358708626",
+  appId: "1:242358708626:web:4ea846c659d757dd80b94b",
+  measurementId: "G-F1VKMNSDRN"
+};
 } catch (e) {
   console.error("Lỗi khởi tạo Firebase:", e);
 }
