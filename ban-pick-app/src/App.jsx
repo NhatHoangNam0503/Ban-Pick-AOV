@@ -8,7 +8,7 @@ import { getFirestore, doc, setDoc, getDoc, collection, addDoc, onSnapshot, upda
 
 // --- FIREBASE SETUP ---
 const firebaseConfig = {
-  apiKey: "AIzaSyCaA3FYFCpgPM-_dE4N2XdLHaEAq7YR2Vg",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "ban-pick-aov-983fc.firebaseapp.com",
   projectId: "ban-pick-aov-983fc",
   storageBucket: "ban-pick-aov-983fc.firebasestorage.app",
@@ -137,7 +137,7 @@ const getHeroPlaystyleInfo = (heroName, role) => {
 // --- LLM API CALLS ---
 const generateAIAdvice = async (prompt) => {
   const delays = [1000, 2000, 4000, 8000, 16000];
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:generateContent?key=${apiKey}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:generateContent?key=${import.meta.env.VITE_GEMINI_API_KEY}`;
   for (let i = 0; i < 5; i++) {
     try {
       const response = await fetch(url, {
@@ -159,7 +159,7 @@ const generateAIAdvice = async (prompt) => {
 
 const generateAIPrediction = async (prompt) => {
   const delays = [1000, 2000, 4000, 8000, 16000];
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:generateContent?key=${apiKey}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:generateContent?key=${import.meta.env.VITE_GEMINI_API_KEY}`;
   for (let i = 0; i < 5; i++) {
     try {
       const response = await fetch(url, {
@@ -192,7 +192,7 @@ const generateAIPrediction = async (prompt) => {
 
 const generateAIPlayerAction = async (prompt) => {
   const delays = [1000, 2000, 4000, 8000, 16000];
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:generateContent?key=${apiKey}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:generateContent?key=${import.meta.env.VITE_GEMINI_API_KEY}`;
   for (let i = 0; i < 5; i++) {
     try {
       const response = await fetch(url, {
