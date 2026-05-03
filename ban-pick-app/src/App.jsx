@@ -137,7 +137,7 @@ const getHeroPlaystyleInfo = (heroName, role) => {
 // --- LLM API CALLS ---
 const generateAIAdvice = async (prompt) => {
   const delays = [1000, 2000, 4000, 8000, 16000];
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`Y`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`Y`;
   for (let i = 0; i < 5; i++) {
     try {
       const response = await fetch(url, {
@@ -159,7 +159,7 @@ const generateAIAdvice = async (prompt) => {
 
 const generateAIPrediction = async (prompt) => {
   const delays = [1000, 2000, 4000, 8000, 16000];
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`Y`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`Y`;
   for (let i = 0; i < 5; i++) {
     try {
       const response = await fetch(url, {
