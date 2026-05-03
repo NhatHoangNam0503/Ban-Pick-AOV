@@ -7,19 +7,23 @@ import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged }
 import { getFirestore, doc, setDoc, getDoc, collection, addDoc, onSnapshot, updateDoc } from 'firebase/firestore';
 
 // --- FIREBASE SETUP ---
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+let app, auth, db, appId;
+try {
+  const firebaseConfig = {
+  apiKey: "AIzaSyCaA3FYFCpgPM-_dE4N2XdLHaEAq7YR2Vg",
   authDomain: "ban-pick-aov-983fc.firebaseapp.com",
   projectId: "ban-pick-aov-983fc",
   storageBucket: "ban-pick-aov-983fc.firebasestorage.app",
   messagingSenderId: "242358708626",
-  appId: "1:242358708626:web:4ea846c659d757dd80b94b"
+  appId: "1:242358708626:web:4ea846c659d757dd80b94b",
+  measurementId: "G-F1VKMNSDRN"
 };
+  }
+} catch (e) {
+  console.error("Lỗi khởi tạo Firebase:", e);
+}
 
-const appId = "1:242358708626:web:4ea846c659d757dd80b94b"; // Gán giá trị cụ thể ở đây
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+const apiKey = ""; 
 
 // --- DỮ LIỆU META & KHẮC CHẾ (TỪ TÀI LIỆU CSV & WEB) ---
 const META_STATS = {
@@ -135,7 +139,6 @@ const getHeroPlaystyleInfo = (heroName, role) => {
 };
 
 // --- LLM API CALLS ---
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY;[cite: 1]
 const generateAIAdvice = async (prompt) => {
   const delays = [1000, 2000, 4000, 8000, 16000];
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
@@ -193,14 +196,11 @@ const generateAIPrediction = async (prompt) => {
 
 const generateAIPlayerAction = async (prompt) => {
   const delays = [1000, 2000, 4000, 8000, 16000];
-  // SỬA TẠI ĐÂY: Thêm ${ } bao quanh biến môi trường
-  const url = const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;[cite: 1];
-  
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
   for (let i = 0; i < 5; i++) {
     try {
       const response = await fetch(url, {
-        method: "POST", 
-        headers: { "Content-Type": "application/json" },
+        method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
           systemInstruction: { parts: [{ text: "Bạn là HLV ĐỘI ĐỎ trong game Liên Quân. Ra quyết định CẤM hoặc CHỌN chuẩn xác. Trả về JSON." }] },
@@ -208,27 +208,16 @@ const generateAIPlayerAction = async (prompt) => {
             responseMimeType: "application/json",
             responseSchema: {
               type: "OBJECT",
-              properties: { 
-                heroId: { type: "STRING" }, 
-                reason: { type: "STRING" } 
-              },
+              properties: { heroId: { type: "STRING" }, reason: { type: "STRING" } },
               required: ["heroId", "reason"]
             }
           }
         }),
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Chi tiết lỗi API:", errorData);
-        throw new Error("API failed");
-      }
-
+      if (!response.ok) throw new Error("API failed");
       const result = await response.json();
-      // Phải parse nội dung text từ AI trả về thành Object JSON
       return JSON.parse(result.candidates?.[0]?.content?.parts?.[0]?.text);
     } catch (error) {
-      console.warn(`Lần thử ${i + 1} thất bại. Đang thử lại...`);
       if (i === 4) return null;
       await new Promise(r => setTimeout(r, delays[i]));
     }
