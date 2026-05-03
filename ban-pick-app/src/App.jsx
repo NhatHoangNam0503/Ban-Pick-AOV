@@ -16,7 +16,7 @@ const firebaseConfig = {
   appId: "1:242358708626:web:4ea846c659d757dd80b94b"
 };
 
-const appId = "ban-pick-aov-983fc"; // Gán giá trị cụ thể ở đây
+const appId = "1:242358708626:web:4ea846c659d757dd80b94b"; // Gán giá trị cụ thể ở đây
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
